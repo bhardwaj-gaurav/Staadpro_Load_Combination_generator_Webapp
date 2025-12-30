@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Load Combination Generator</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Load Combination Generator</h1>
+
+    <div class="table-wrap">
+      <div class="grid" id="grid">
+        <!-- Header row -->
+        <div class="cell header empty"></div>
+        <!-- Case headers Case 1..Case 11 -->
+        <script>
+          for (let c = 1; c <= 11; c++) {
+            document.write(`<div class="cell header">Case ${c}</div>`);
+          }
+        </script>
+
+        <!-- Name entries row -->
+        <div class="cell row-label">Name</div>
+        <script>
+          for (let c = 0; c < 11; c++) {
+            document.write(`<div class="cell"><input class="name" id="name${c}" type="text" value=""></div>`);
+          }
+        </script>
+
+        <!-- Type combobox row -->
+        <div class="cell row-label">Type</div>
+        <script>
+          const loadTypes = ["Dead","Live","Wind","Seismic","Snow","Roof Live","Dust","Temperature","Accidental","Crane Hook","Mass","None"];
+          for (let c = 0; c < 11; c++) {
+            let opts = loadTypes.map(t=>`<option>${t}</option>`).join('');
+            document.write(`<div class="cell"><select class="type" id="type${c}">${opts}</select></div>`);
+          }
+        </script>
+
+        <!-- Comb rows Comb 1..Comb 10 -->
+        <script>
+          for (let r = 1; r <= 10; r++) {
+            document.write(`<div class="cell row-label">Comb ${r}</div>`);
+            for (let c = 0; c < 11; c++) {
+              document.write(`<div class="cell"><input class="coeff" id="coeff_r${r-1}_c${c}" type="text" value=""></div>`);
+            }
+          }
+        </script>
+
+        <!-- Subcase row (green) -->
+        <div class="cell row-label">Subcase</div>
+        <script>
+          for (let c = 0; c < 11; c++) {
+            document.write(`<div class="cell"><input class="subcase" id="sub${c}" type="text" value=""></div>`);
+          }
+        </script>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="controls-row">
+        <label>Start Load: <input id="start_load" type="text" value="1"></label>
+        <label>Start Combination: <input id="start_comb" type="text" value="101"></label>
+
+        <div class="stats">
+          <label>Total Load Cases: <input id="total_loads" readonly></label>
+          <label>Total Combinations: <input id="total_combs" readonly></label>
+        </div>
+
+        <div class="buttons">
+          <button id="generate">Generate</button>
+          <button id="clear">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output modal -->
+    <div id="outputModal" class="modal">
+      <div class="modal-content">
+        <h2>Generated Combinations</h2>
+        <textarea id="outputText" readonly></textarea>
+        <div class="modal-actions">
+          <button id="copyBtn">Copy to Clipboard</button>
+          <button id="closeBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
