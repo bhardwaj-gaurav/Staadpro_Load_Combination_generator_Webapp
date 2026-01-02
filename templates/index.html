@@ -11,7 +11,7 @@
 
     <div class="table-wrap">
       <div class="grid" id="grid">
-        <!-- Header row -->
+        <!-- Header-->
         <div class="cell header empty"></div>
         <!-- Case headers Case 1..Case 11 -->
         <script>
@@ -20,7 +20,7 @@
           }
         </script>
 
-        <!-- Name entries row -->
+        <!-- Title entries -->
         <div class="cell row-label">Name</div>
         <script>
           for (let c = 0; c < 11; c++) {
@@ -28,7 +28,7 @@
           }
         </script>
 
-        <!-- Type combobox row -->
+        <!-- Type combobox -->
         <div class="cell row-label">Type</div>
         <script>
           const loadTypes = ["Dead","Live","Wind","Seismic","Snow","Roof Live","Dust","Temperature","Accidental","Crane Hook","Mass","None"];
@@ -48,7 +48,7 @@
           }
         </script>
 
-        <!-- Subcase row (green) -->
+        <!-- Subcases-->
         <div class="cell row-label">Subcase</div>
         <script>
           for (let c = 0; c < 11; c++) {
@@ -75,7 +75,6 @@
       </div>
     </div>
 
-    <!-- Output modal -->
     <div id="outputModal" class="modal">
       <div class="modal-content">
         <h2>Generated Combinations</h2>
