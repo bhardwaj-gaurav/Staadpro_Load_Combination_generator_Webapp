@@ -1,9 +1,7 @@
-// Mirror the Tkinter behavior: keyboard navigation, generate/clear, AJAX to backend, modal copy
 document.addEventListener('DOMContentLoaded', () => {
-  const N = 11; // number of cases
-  const R = 10; // number of combinations rows
+  const N = 11;
+  const R = 10; 
 
-  // Helper to get elements
   const nameEls = Array.from({length:N}, (_,i)=>document.getElementById(`name${i}`));
   const typeEls = Array.from({length:N}, (_,i)=>document.getElementById(`type${i}`));
   const subEls  = Array.from({length:N}, (_,i)=>document.getElementById(`sub${i}`));
@@ -28,9 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copyBtn');
   const closeBtn = document.getElementById('closeBtn');
 
-  // Keyboard navigation: arrow keys move focus in grid
-  const focusMap = []; // list of focusable elements with grid coords
-  // Row 0: names (rowIndex 0), Row1: types (1), Comb rows 2..11 (2..11), Subcase row 12 (12)
+  const focusMap = [];
   for (let c=0;c<N;c++){
     focusMap.push({el:nameEls[c], r:0, c});
   }
@@ -59,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ev.key==='ArrowDown') nr = f.r + 1;
         if (ev.key==='ArrowLeft') nc = f.c - 1;
         if (ev.key==='ArrowRight') nc = f.c + 1;
-        // clamp
         if (nc < 0) nc = 0;
         if (nc > N-1) nc = N-1;
         if (nr < 0) nr = 0;
@@ -70,12 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Clear function: reset to defaults
   function clearAll(){
   for (let i=0;i<N;i++){
-    nameEls[i].value = "";        // keep name inputs empty
+    nameEls[i].value = "";      
     typeEls[i].selectedIndex = 0;
-    subEls[i].value = "";         // keep subcase inputs empty
+    subEls[i].value = "";      
   }
   for (let r=0;r<R;r++){
     for (let c=0;c<N;c++){
@@ -89,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 clearBtn.addEventListener('click', clearAll);
 
-  // Generate: collect data, POST to /generate, show modal
   generateBtn.addEventListener('click', async ()=>{
     const payload = {
       start_load: startLoad.value,
@@ -115,7 +108,6 @@ clearBtn.addEventListener('click', clearAll);
     }
   });
 
-  // Modal actions
   copyBtn.addEventListener('click', ()=>{
     navigator.clipboard.writeText(outputText.value).then(()=>{
       alert('STAAD.Pro commands copied to clipboard!');
@@ -123,9 +115,6 @@ clearBtn.addEventListener('click', clearAll);
   });
   closeBtn.addEventListener('click', ()=> modal.style.display = 'none');
 
-  // Close modal on outside click
   modal.addEventListener('click', (e)=>{ if (e.target === modal) modal.style.display = 'none'; });
-
-  // initialize
   clearAll();
 });
