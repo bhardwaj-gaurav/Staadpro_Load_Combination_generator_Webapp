@@ -14,12 +14,12 @@ def generate_staad(payload):
     except Exception:
         start_comb = 101
 
-    names = payload.get("names", [])            # list of 11 names
-    types = payload.get("types", [])            # list of 11 types
-    subcases = payload.get("subcases", [])      # list of 11 subcase counts (strings)
-    coeffs = payload.get("coeffs", [])          # list of rows (each row list of 11 strings)
+    names = payload.get("names", [])       
+    types = payload.get("types", [])          
+    subcases = payload.get("subcases", [])     
+    coeffs = payload.get("coeffs", [])         
 
-    # Build load cases and groups
+    # Build load cases
     load_cases = []
     load_case_groups = {}
     current_load = start_load
@@ -47,7 +47,6 @@ def generate_staad(payload):
     current_comb = start_comb
 
     for row in coeffs:
-        # ensure row length equals number of cases (11)
         coeffs_row = []
         for i in range(len(names)):
             try:
